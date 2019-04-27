@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ETicaret
+namespace ETicaret.DB
 {
     using System;
     using System.Collections.Generic;

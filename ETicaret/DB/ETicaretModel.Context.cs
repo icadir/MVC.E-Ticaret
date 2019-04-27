@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ETicaret
+namespace ETicaret.DB
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ETicaretEntities : DbContext
+    public partial class ETicaretDbEntities : DbContext
     {
-        public ETicaretEntities()
-            : base("name=ETicaretEntities")
+        public ETicaretDbEntities()
+            : base("name=ETicaretDbEntities")
         {
         }
     

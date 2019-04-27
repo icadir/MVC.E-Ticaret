@@ -7,23 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ETicaret
+namespace ETicaret.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderDetails
+    public partial class Addresses
     {
         public System.Guid Id { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public byte Discount { get; set; }
-        public System.Guid Order_Id { get; set; }
-        public int Product_Id { get; set; }
+        public string AdresDescription { get; set; }
+        public int Member_Id { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Orders Orders { get; set; }
-        public virtual Products Products { get; set; }
+        public virtual Members Members { get; set; }
     }
 }

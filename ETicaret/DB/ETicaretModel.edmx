@@ -23,8 +23,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Parent_Id" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="AddedDate" Type="datetime" />
-          <Property Name="ModifedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -103,8 +103,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="IsContinued" Type="bit" Nullable="false" />
           <Property Name="StarPoint" Type="int" Nullable="false" />
@@ -310,8 +310,8 @@
           <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Parent_Id" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Categories1" Relationship="Self.FK_Categories_Categories" FromRole="Categories" ToRole="Categories1" />
           <NavigationProperty Name="Categories2" Relationship="Self.FK_Categories_Categories" FromRole="Categories1" ToRole="Categories" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
@@ -406,8 +406,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="IsContinued" Type="Boolean" Nullable="false" />
           <Property Name="StarPoint" Type="Int32" Nullable="false" />
@@ -541,7 +541,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ETicaretEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ETicaretDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Addresses" />
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="Comments" EntityType="Self.Comments" />
@@ -594,15 +594,15 @@
         </EntityContainer>
         <EnumType Name="MemberTypes">
           <Member Name="Customer" Value="0" />
-          <Member Name="Editor" Value="8" />
           <Member Name="Admin" Value="10" />
+          <Member Name="Editor" Value="8" />
         </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ETicaretModelStoreContainer" CdmEntityContainer="ETicaretEntities">
+        <EntityContainerMapping StorageEntityContainer="ETicaretModelStoreContainer" CdmEntityContainer="ETicaretDbEntities">
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="ETicaretModel.Addresses">
               <MappingFragment StoreEntitySet="Addresses">

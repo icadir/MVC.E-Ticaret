@@ -1,7 +1,13 @@
-﻿
+﻿@model ETicaret.Models.i.indexModel
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="row">
 
+    @foreach (var item in Model.Products)
+    {
+        @Html.Partial("_ProductItem", item);
+    }
+
+</div>

@@ -1,20 +1,29 @@
-﻿using System.Web.Mvc;
+﻿using ETicaret.DB;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace ETicaret.Controllers
 {
     public class iController : Controller
     {
-        private ETicaretEntities context;
+        private ETicaretDbEntities context;
 
         public iController()
         {
-            context = new ETicaretEntities();
+            context = new ETicaretDbEntities();
         }
 
         public ActionResult Index()
         {
-            
-            return View();
+            var viewModel = new Models.i.indexModel()
+            {
+                Products = context.Products.ToList()
+            };
+            return View(viewModel);
         }
+
     }
+
 }
+
+

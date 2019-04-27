@@ -7,29 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ETicaret
+namespace ETicaret.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Orders
+    public partial class Categories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Orders()
+        public Categories()
         {
-            this.OrderDetails = new HashSet<OrderDetails>();
+            this.Categories1 = new HashSet<Categories>();
+            this.Products = new HashSet<Products>();
         }
     
-        public System.Guid Id { get; set; }
-        public int Member_Id { get; set; }
-        public string Address { get; set; }
-        public string Status { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Parent_Id { get; set; }
         public string Description { get; set; }
         public System.DateTime AddedDate { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<System.DateTime> ModifedDate { get; set; }
     
-        public virtual Members Members { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<Categories> Categories1 { get; set; }
+        public virtual Categories Categories2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

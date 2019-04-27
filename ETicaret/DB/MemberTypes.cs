@@ -7,14 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ETicaret
+namespace ETicaret.DB
 {
     using System;
     
     public enum MemberTypes : int
     {
         Customer = 0,
-        Editor = 8,
-        Admin = 10
+        Admin = 10,
+        Editor = 8
     }
 }

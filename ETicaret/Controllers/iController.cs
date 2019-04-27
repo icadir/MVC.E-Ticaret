@@ -4,9 +4,16 @@ namespace ETicaret.Controllers
 {
     public class iController : Controller
     {
-        // GET: i
+        private ETicaretEntities context;
+
+        public iController()
+        {
+            context = new ETicaretEntities();
+        }
+
         public ActionResult Index()
         {
+            
             return View();
         }
     }

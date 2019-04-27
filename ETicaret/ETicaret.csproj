@@ -56,6 +56,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -104,6 +106,16 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="ETicaretModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ETicaretModel.edmx</DependentUpon>
+      <LastGenOutput>ETicaretModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ETicaretModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ETicaretModel.edmx</DependentUpon>
+      <LastGenOutput>ETicaretModel.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -120,6 +132,13 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <EntityDeploy Include="ETicaretModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ETicaretModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ETicaretModel.edmx.diagram">
+      <DependentUpon>ETicaretModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -143,10 +162,56 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addresses.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Categories.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comments.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\iController.cs" />
+    <Compile Include="ETicaretModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ETicaretModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ETicaretModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ETicaretModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ETicaretModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Members.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTypes.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessageReplies.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Messages.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enums.cs" />
+    <Compile Include="OrderDetails.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -166,7 +231,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="DB\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

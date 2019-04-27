@@ -1,7 +1,40 @@
 ﻿@model ETicaret.Models.i.indexModel
 @{
     ViewBag.Title = "Index";
+    List<ETicaret.DB.Categories> categories = new List<ETicaret.DB.Categories>();
+    if (Model.Category != null)
+    {
+        categories.Add(Model.Category);
+        var parentcat = Model.Category.Categories2;
+        while (parentcat != null)
+        {
+            categories.Add(parentcat);
+            parentcat = parentcat.Categories2;
+        }
+    }
 }
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("index", "i", new { id = 0 })">Ana Sayfa</a></li>
+            @for (int i = categories.Count - 1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    <li class="active">@categories[i].Name</li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("index","i",new { id=categories[i].Id })">@categories[i].Name</a></li>
+                }
+
+            }
+            @*<li class="active">Bilgisayar</li>*@
+        </ol>
+    </div>
+</div>
+
 
 <div class="row">
 

@@ -224,7 +224,9 @@
     <Compile Include="Models\Account\LoginModels.cs" />
     <Compile Include="Models\Account\RegisterModels.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\i\CommentModels.cs" />
     <Compile Include="Models\i\indexModel.cs" />
+    <Compile Include="Models\i\ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +240,10 @@
     <Content Include="Views\Shared\_MenuTopCategory.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\i\Product.cshtml" />
+    <Content Include="Views\Shared\_Product.cshtml" />
+    <Content Include="Views\Shared\_AddCart.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

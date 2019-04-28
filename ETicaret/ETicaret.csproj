@@ -141,6 +141,7 @@
     </Content>
     <Content Include="App_Code\_MenuHelper.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="images\default.jpg" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -169,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="DB\Addresses.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
@@ -218,6 +221,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\LoginModels.cs" />
+    <Compile Include="Models\Account\RegisterModels.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\i\indexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,6 +236,8 @@
     <Content Include="Views\i\Index.cshtml" />
     <Content Include="Views\Shared\_ProductItem.cshtml" />
     <Content Include="Views\Shared\_MenuTopCategory.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -240,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

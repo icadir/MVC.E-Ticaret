@@ -42,6 +42,9 @@ textarea {
 }
 
 /*Menü CSS*/
+.dropdown:hover > .dropdown-menu  {
+    display: block;
+}
 
 .dropdown-submenu {
     position: relative;
@@ -90,4 +93,6 @@ textarea {
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
+
+
 /*Menü CSS BİTTİ*/

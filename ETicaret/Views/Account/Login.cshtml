@@ -1,0 +1,50 @@
+﻿@model ETicaret.Models.Account.LoginModels
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        @using (Html.BeginForm())
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h2>Login</h2>
+                    @if (ViewBag.ReError != null && string.IsNullOrEmpty((string)ViewBag.ReError) == false)
+                    {
+                        <small style="color:red;"></small>
+                    }
+                    else
+                    {
+                        <small>Please enter e-mail and password</small>
+                    }
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <center>
+                            <img src="~/images/default.jpg" class="img-circle img-responsive" style="width:125px" />
+                        </center>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.Member.Email, new { @class = "form-control", placeholder = "e-mail adress", type = "email" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.Member.Password, new { @class = "form-control", placeholder = "password", type = "password" })
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="#" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-asterisk"></span> Forgot Password
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <span class="glyphicon glyphicon-log-in"></span> Login
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

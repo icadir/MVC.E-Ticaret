@@ -1,19 +1,11 @@
-﻿using ETicaret.DB;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 
 namespace ETicaret.Controllers
 {
-    public class iController : Controller
+    public class iController : BaseController
     {
-        private ETicaretDbEntities context;
-
-        public iController()
-        {
-            context = new ETicaretDbEntities();
-            ViewBag.MenuCategories = context.Categories.Where(x => x.Parent_Id == null).ToList();
-        }
-
+     
         public ActionResult Index(int? id)
         {
             IQueryable<DB.Products> products = context.Products;

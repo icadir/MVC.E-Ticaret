@@ -11,6 +11,7 @@ namespace ETicaret.Controllers
         public iController()
         {
             context = new ETicaretDbEntities();
+            ViewBag.MenuCategories = context.Categories.Where(x => x.Parent_Id == null).ToList();
         }
 
         public ActionResult Index(int? id)

@@ -1,0 +1,24 @@
+﻿@model List<ETicaret.DB.Categories>
+
+
+<ul class="nav navbar-nav">
+
+    @foreach (var cat in Model)
+    {
+        if (cat.Categories1.Any())
+        {
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="@Url.Action("index","i",new { id=cat.Id })">
+                    @cat.Name>@cat.Name
+                    <span class="caret"></span>
+                </a>
+                @_MenuHelper.MenuRecursive(cat.Categories1.ToList())
+            </li>
+        }
+        else
+        {
+            <li><a href="@Url.Action("index","i",new { id=cat.Id })">@cat.Name>@cat.Name</a></li>
+        }
+
+    }
+</ul>

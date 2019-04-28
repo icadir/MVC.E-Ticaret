@@ -28,12 +28,10 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="menulist">
-                @*<ul class="nav navbar-nav">
-                        TODO : Kategoriler Gelecek
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                    </ul>*@
+                @Html.Partial("_MenuTopCategory", (List<ETicaret.DB.Categories>)ViewBag.MenuCategories)
+
+
+             
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">
@@ -47,23 +45,22 @@
                     </li>
                     <li>
                         <a href="#">
-                            @*Todo : Giris Yapan kullanıcı Adı yazılacaktır.  *@
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;İsmail Çadır
+                            @* TODO: Giriş yapankullanıc adı yazılacaktır. *@
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;Fatih GÜRDAL
                         </a>
                     </li>
                     <li class="dropdown">
                         <a href="#"
                            class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Sepetim
-                            @*// TODO sepetteki ürün sayısı eklenicek*@
+                            @* TODO: septteki üürn sayısı eklenecek *@
                             <span class="badge">0</span>
                             <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-
                             @*
-                                    TODO : Buraya Gerçek ürünler gelecek
+                                    TODO: buraya gerçek ürünelr gelcek
                                     <li><a href="product.html">Ürün 1</a></li>
                                 <li><a href="product.html">Ürün 2</a></li>
                                 <li><a href="product.html">Ürün 3</a></li>*@
@@ -76,15 +73,14 @@
                         <a href="#"
                            class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-envelope"></span>&nbsp;Mesajlar
-                            @* Todo : Mesaj SAyısı eklenecek *@
+                            @* TODO: mesaj sayısı eklenecek *@
                             <span class="badge">0</span>
                             <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-
                             @*
-                                    TODO : Buraya Gerçek Mesajlar gelecek
+                                    TODO: buraya gerçek mesajalr gelcek
                                     <li><a href="message.html">Mesaj 1</a></li>
                                 <li><a href="message.html">Mesaj 2</a></li>*@
                             <li class="divider" role="separator"></li>
@@ -98,6 +94,7 @@
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
+            <!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container">

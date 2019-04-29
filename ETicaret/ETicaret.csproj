@@ -246,6 +246,7 @@
     <Content Include="Views\Shared\_AddCart.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Account\Profil.cshtml" />
+    <Content Include="Views\Account\ProfilEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

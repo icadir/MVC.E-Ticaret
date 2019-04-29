@@ -24,6 +24,7 @@ namespace ETicaret.Controllers
             };
             return View(viewModel);
         }
+
         [HttpGet]
         public ActionResult Product(int id = 0)
         {
@@ -59,6 +60,8 @@ namespace ETicaret.Controllers
             }
 
         }
+
+
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using ETicaret.Models;
 using ETicaret.Models.Account;
 using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -94,6 +95,57 @@ namespace ETicaret.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult ProfilEdit()
+        {
+
+            int id = base.CurrentUserId();
+
+            var user = context.Members.FirstOrDefault(x => x.Id == id);
+            if (user == null) return RedirectToAction("index", "i");
+            ProfilModels model = new ProfilModels()
+            {
+                Members = user,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ProfilEdit(ProfilModels model)
+        {
+            try
+            {
+                var updateMember = context.Members.FirstOrDefault(x => x.Id == CurrentUserId());
+                updateMember.ModifiedDate = DateTime.Now;
+                updateMember.Bio = model.Members.Bio;
+                updateMember.Name = model.Members.Name;
+                updateMember.Surname = model.Members.Surname;
+                if (string.IsNullOrEmpty(model.Members.Password) == false)
+                {
+                    updateMember.Password = model.Members.Password;
+                }
+                if (Request.Files != null && Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    var folder = Server.MapPath("~/images/");
+                    var fileName = Guid.NewGuid() + ".jpg";
+                    file.SaveAs(Path.Combine(folder, fileName));
+
+                    var filePath = "/images/" + fileName;
+                    updateMember.ProfileImageName = filePath;
+                }
+
+                context.SaveChanges();
+                return RedirectToAction("Profile", "Account");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MyError = ex.Message;
+                return View();
+            }
         }
     }
 }

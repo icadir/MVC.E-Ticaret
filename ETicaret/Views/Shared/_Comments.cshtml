@@ -1,6 +1,6 @@
 ﻿@model ETicaret.Models.i.CommentModels
 @{
-    string defaultImage = "~/images/default.jpg";
+    string defaultImage = "images/default.jpg";
 }
 
 
@@ -20,8 +20,8 @@
                     <li class="media">
                         <div class="media-left">
                             @*//TODO kişi Profileine gidilecek*@
-                            <a href="#">
-                                <img class="media-object img-circle img-thumbnail" src="@(string.IsNullOrEmpty(item.Members.ProfileImageName)?defaultImage:item.Members.ProfileImageName)">
+                            <a href="~/Account/Profil/@item.Members.Id">
+                                <img class="media-object img-circle img-thumbnail" style="width:64px;" src="~/@(string.IsNullOrEmpty(item.Members.ProfileImageName)?defaultImage:item.Members.ProfileImageName)">
                             </a>
                         </div>
                         <div class="media-body">

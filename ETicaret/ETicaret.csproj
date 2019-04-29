@@ -227,6 +227,7 @@
     <Compile Include="Models\i\CommentModels.cs" />
     <Compile Include="Models\i\indexModel.cs" />
     <Compile Include="Models\i\ProductModels.cs" />
+    <Compile Include="Models\ProfilModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +245,7 @@
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Shared\_AddCart.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Account\Profil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

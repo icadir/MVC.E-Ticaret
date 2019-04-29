@@ -1,0 +1,74 @@
+﻿@model ETicaret.Models.ProfilModels
+
+@{
+    ViewBag.Title = string.Format($"{Model.Members.Name} {Model.Members.Surname}");
+
+    @Model.Members.ProfileImageName= string.IsNullOrEmpty(Model.Members.ProfileImageName) ? "Images/default.jpg" : Model.Members.ProfileImageName;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Profil Sayfası</h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <center><img src="~/@Model.Members.ProfileImageName" class="img-circle img-responsive img-thumbnail" /></center>
+    </div>
+    <div class="col-md-8 well">
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 text-danger">Adı : </label>
+            <label class="col-md-10">@Model.Members.Name</label>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 text-danger">Soyadı : </label>
+            <label class="col-md-10">@Model.Members.Surname</label>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 text-danger">E-Mail : </label>
+            <label class="col-md-10">@Model.Members.Email</label>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 text-danger">Hakkında : </label>
+            <label class="col-md-10">&nbsp;
+                @Model.Members.Bio
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 text-danger">Kayıt Tarihi : </label>
+            <label class="col-md-10">
+                @Model.Members.AddedDate.ToShortDateString()
+            </label>
+        </div>
+    </div>
+</div>
+
+@if (Session["LogonUser"] != null && ((ETicaret.DB.Members)Session["LogonUser"]).Id==Model.Members.Id)
+{
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-right">
+            <a href="#" class="btn btn-warning">
+                <span class="glyphicon glyphicon-edit"></span> Düzenle
+            </a>
+
+            <a href="#" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span> Sil
+            </a>
+        </div>
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+}

@@ -1,4 +1,5 @@
-﻿using ETicaret.Models.Account;
+﻿using ETicaret.Models;
+using ETicaret.Models.Account;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -23,7 +24,7 @@ namespace ETicaret.Controllers
                 {
                     throw new Exception("Şifreler Aynı degiltir.");
                 }
-                if (context.Members.Any(x=>x.Email==user.Member.Email))
+                if (context.Members.Any(x => x.Email == user.Member.Email))
                 {
                     throw new Exception("Bu E-posta Adresi Kayıtlıdır..");
                 }
@@ -78,9 +79,21 @@ namespace ETicaret.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult Profile()
+        [HttpGet]
+        public ActionResult Profil(int id = 0)
         {
-            return View();
+            if (id == 0)
+            {
+                id = base.CurrentUserId();
+            }
+            var user = context.Members.FirstOrDefault(x => x.Id == id);
+            if (user == null) return RedirectToAction("index", "i");
+            ProfilModels model = new ProfilModels()
+            {
+                Members = user,
+            };
+
+            return View(model);
         }
     }
 }

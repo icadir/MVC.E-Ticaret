@@ -8,22 +8,22 @@
         <EntityTypeShape EntityType="ETicaretModel.Addresses" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Categories" Width="1.5" PointX="1.5" PointY="18.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Comments" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ETicaretModel.Members" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.MessageReplies" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Messages" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.OrderDetails" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Orders" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Products" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <AssociationConnector Association="ETicaretModel.FK_Addresses_Members" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_Categories_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_Products_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="ETicaretModel.FK_Comments_Members" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_Comments_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="ETicaretModel.FK_MessageReplies_Members" ManuallyRouted="false" />
-        <AssociationConnector Association="ETicaretModel.FK_Orders_Members" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_MessageReplies_Messages" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Products" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ETicaretModel.Members" Width="1.5" PointX="0.75" PointY="6.125" />
+        <AssociationConnector Association="ETicaretModel.FK_Addresses_Members" />
+        <AssociationConnector Association="ETicaretModel.FK_Comments_Members" />
+        <AssociationConnector Association="ETicaretModel.FK_MessageReplies_Members" />
+        <AssociationConnector Association="ETicaretModel.FK_Orders_Members" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

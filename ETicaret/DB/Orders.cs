@@ -28,8 +28,8 @@ namespace ETicaret.DB
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Members Members { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual Members Members { get; set; }
     }
 }

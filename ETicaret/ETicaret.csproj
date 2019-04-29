@@ -200,6 +200,9 @@
     <Compile Include="DB\Members.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\MemberType.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\MemberTypes.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>

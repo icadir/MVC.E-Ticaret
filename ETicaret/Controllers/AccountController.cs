@@ -29,7 +29,7 @@ namespace ETicaret.Controllers
                 {
                     throw new Exception("Bu E-posta Adresi Kayıtlıdır..");
                 }
-                user.Member.MemberType = DB.MemberTypes.Customer;
+                user.Member.MemberType = DB.MemberType.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
                 context.SaveChanges();
@@ -118,7 +118,8 @@ namespace ETicaret.Controllers
         {
             try
             {
-                var updateMember = context.Members.FirstOrDefault(x => x.Id == CurrentUserId());
+                int id = CurrentUserId();
+                var updateMember = context.Members.FirstOrDefault(x => x.Id == id);
                 updateMember.ModifiedDate = DateTime.Now;
                 updateMember.Bio = model.Members.Bio;
                 updateMember.Name = model.Members.Name;
@@ -130,12 +131,16 @@ namespace ETicaret.Controllers
                 if (Request.Files != null && Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
-                    var folder = Server.MapPath("~/images/");
-                    var fileName = Guid.NewGuid() + ".jpg";
-                    file.SaveAs(Path.Combine(folder, fileName));
+                    if (file.ContentLength > 0)
+                    {
+                        var folder = Server.MapPath("~/images/");
+                        var fileName = Guid.NewGuid() + ".jpg";
+                        file.SaveAs(Path.Combine(folder, fileName));
 
-                    var filePath = "/images/" + fileName;
-                    updateMember.ProfileImageName = filePath;
+                        var filePath = "/images/" + fileName;
+                        updateMember.ProfileImageName = filePath;
+                    }
+
                 }
 
                 context.SaveChanges();
@@ -144,7 +149,12 @@ namespace ETicaret.Controllers
             catch (Exception ex)
             {
                 ViewBag.MyError = ex.Message;
-                return View();
+                int id = CurrentUserId();
+                var viewModel = new ProfilModels()
+                {
+                    Members = context.Members.FirstOrDefault(x => x.Id == id),
+                };
+                return View(viewModel);
             }
         }
     }

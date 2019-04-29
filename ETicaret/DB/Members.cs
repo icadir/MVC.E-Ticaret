@@ -32,7 +32,7 @@ namespace ETicaret.DB
         public string ProfileImageName { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public MemberTypes MemberType { get; set; }
+        public MemberType MemberType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Addresses> Addresses { get; set; }

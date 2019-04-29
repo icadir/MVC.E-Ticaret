@@ -16,11 +16,13 @@ namespace ETicaret.Controllers
 
         protected DB.Members GCurrentUser()
         {
+            if (Session["LogonUser"] == null) return null;
             return (DB.Members)Session["LogonUser"];
         }
 
         protected int CurrentUserId()
         {
+            if (Session["LogonUser"] == null) return 0;
             return ((DB.Members)Session["LogonUser"]).Id;
         }
     }

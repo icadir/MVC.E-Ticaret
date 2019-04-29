@@ -10,18 +10,11 @@
 namespace ETicaret.DB
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Comments
+    public enum MemberType : int
     {
-        public int Id { get; set; }
-        public string Text { get; set; }
-        public int Member_Id { get; set; }
-        public int Product_Id { get; set; }
-        public System.DateTime AddedDate { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-    
-        public virtual Products Products { get; set; }
-        public virtual Members Members { get; set; }
+        Customer = 0,
+        Admin = 10,
+        Editor = 8
     }
 }

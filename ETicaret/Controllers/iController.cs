@@ -1,7 +1,9 @@
 ﻿using ETicaret.Models.i;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+
 
 namespace ETicaret.Controllers
 {
@@ -49,19 +51,97 @@ namespace ETicaret.Controllers
                 comment.AddedDate = DateTime.Now;
                 context.Comments.Add(comment);
                 context.SaveChanges();
-                return RedirectToAction("Product", "i");
 
             }
             catch (Exception ex)
             {
                 ViewBag.ReError = ex.Message;
-                return View(comment);
-
             }
-
+            return RedirectToAction("Product", "i");
         }
 
+        [HttpGet]
+        public ActionResult AddBasket(int id, bool remove = false)
+        {
+            List<Models.i.BasketModels> basket = null;
+            if (Session["Basket"] == null)
+            {
+                basket = new List<Models.i.BasketModels>();
+            }
+            else
+            {
+                basket = (List<Models.i.BasketModels>)Session["Basket"];
+            }
+            if (basket.Any(x => x.Product.Id == id))
+            {
+                var pro = basket.FirstOrDefault(x => x.Product.Id == id);
+                if (remove && pro.Count > 0)
+                {
+                    pro.Count -= 1;
 
+                }
+                else
+                {
+                    if (pro.Product.UnitsInStock > pro.Count)
+                    {
+                        pro.Count += 1;
+                    }
+                    else
+                    {
+                        TempData["MyError"] = "Yeterli Stok Yok";
+                    }
+                }
+            }
+            else
+            {
+                var pro = context.Products.FirstOrDefault(x => x.Id == id);
+                if (pro != null && pro.IsContinued && pro.UnitsInStock > 0)
+                {
+                    basket.Add(new BasketModels
+                    {
+                        Count = 1,
+                        Product = pro
+                    });
+                }
+                else if (pro != null && pro.IsContinued == false)
+                {
+                    TempData["MyError"] = "Bu ürünün Satışı Durduruldu.";
+                }
+            }
+
+            basket.RemoveAll(x => x.Count < 1);
+            Session["Basket"] = basket;
+
+            return RedirectToAction("Basket", "i");
+        }
+
+        [HttpGet]
+        public ActionResult Basket()
+        {
+            List<Models.i.BasketModels> model = (List<Models.i.BasketModels>)Session["Basket"] ?? new List<Models.i.BasketModels>();
+            ViewBag.TotalPrice = model.Select(x => x.Product.Price * x.Count).Sum();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveBasket(int id)
+        {
+            List<Models.i.BasketModels> basket = (List<Models.i.BasketModels>)Session["Basket"];
+            if (basket != null)
+            {
+                if (id > 0)
+                {
+                    basket.RemoveAll(x => x.Product.Id == id);
+                }
+                else if (id == 0)
+                {
+                    basket.Clear();
+                }
+                Session["Basket"] = basket;
+            }
+
+            return RedirectToAction("Basket", "i");
+        }
     }
 
 }

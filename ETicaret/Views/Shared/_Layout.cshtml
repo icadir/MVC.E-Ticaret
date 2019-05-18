@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ETicaret.Models.i
+@{
     ETicaret.DB.Members logonUser = (ETicaret.DB.Members)Session["LogonUser"];
 }
 
@@ -55,24 +56,32 @@
                             </a>
                         </li>
                     }
-
+                    @{
+                        List<ETicaret.Models.i.BasketModels> basket = (List<ETicaret.Models.i.BasketModels>)Session["Basket"];
+                        if (basket == null)
+                        {
+                            basket = new List<ETicaret.Models.i.BasketModels>();
+                        }
+                    }
                     <li class="dropdown">
                         <a href="#"
                            class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Sepetim
                             @* TODO: septteki üürn sayısı eklenecek *@
-                            <span class="badge">0</span>
+                            <span class="badge">@basket.Count</span>
                             <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            @*
-                                    TODO: buraya gerçek ürünelr gelcek
-                                    <li><a href="product.html">Ürün 1</a></li>
-                                <li><a href="product.html">Ürün 2</a></li>
-                                <li><a href="product.html">Ürün 3</a></li>*@
+                         
+                            @foreach (var item in basket)
+                            {
+                                <li>
+                                    <a href="~/i/Product/@item.Product.Id">@item.Product.Name (@item.Count)</a>
+                                </li>
+                            }
                             <li class="divider" role="separator"></li>
-                            <li><a href="#">Sepete Git</a></li>
+                            <li><a href="~/i/Basket">Sepete Git</a></li>
                         </ul>
 
                     </li>

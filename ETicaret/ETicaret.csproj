@@ -226,7 +226,9 @@
     </Compile>
     <Compile Include="Models\Account\LoginModels.cs" />
     <Compile Include="Models\Account\RegisterModels.cs" />
+    <Compile Include="Models\BasketModels.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\i\BasketModels.cs" />
     <Compile Include="Models\i\CommentModels.cs" />
     <Compile Include="Models\i\indexModel.cs" />
     <Compile Include="Models\i\ProductModels.cs" />
@@ -250,6 +252,7 @@
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Account\Profil.cshtml" />
     <Content Include="Views\Account\ProfilEdit.cshtml" />
+    <Content Include="Views\i\Basket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

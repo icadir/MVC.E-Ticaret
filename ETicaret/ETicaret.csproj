@@ -173,7 +173,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\iController.cs" />
-    <Compile Include="DB\Addresses.cs">
+    <Compile Include="DB\Address.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Categories.cs">

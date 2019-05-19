@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace ETicaret.Controllers
 {
@@ -84,7 +85,7 @@ namespace ETicaret.Controllers
         [HttpGet]
         public ActionResult Profil(int id = 0)
         {
-            var addresses = new List<DB.Address>();
+            List<DB.Address> addresses = null;
             if (id == 0)
             {
                 id = base.CurrentUserId();
@@ -95,7 +96,7 @@ namespace ETicaret.Controllers
             ProfilModels model = new ProfilModels()
             {
                 Members = user,
-
+                Addresseses = addresses
             };
 
             return View(model);
@@ -160,6 +161,28 @@ namespace ETicaret.Controllers
                 };
                 return View(viewModel);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Address(DB.Address address)
+        {
+            DB.Address _address = null;
+            if (address.Id == Guid.Empty)
+            {
+                address.Id = Guid.NewGuid();
+                address.AddedDate = DateTime.Now;
+                address.Member_Id = base.CurrentUserId();
+                context.Addresses.Add(address);
+            }
+            else
+            {
+                _address = context.Addresses.FirstOrDefault(x => x.Id == address.Id);
+                _address.ModifiedDate = DateTime.Now;
+                _address.NAme = address.NAme;
+                _address.AdresDescription = address.AdresDescription;
+            }
+            context.SaveChanges();
+            return RedirectToAction("Profil", "Account");
         }
     }
 }

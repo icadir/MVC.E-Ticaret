@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = string.Format($"{Model.Members.Name} {Model.Members.Surname}");
 
-    @Model.Members.ProfileImageName= string.IsNullOrEmpty(Model.Members.ProfileImageName) ? "Images/default.jpg" : Model.Members.ProfileImageName;
+    @(Model.Members.ProfileImageName = "Images/default.jpg") ;
 }
 <div class="row">
     <div class="col-md-12">
@@ -70,17 +70,20 @@
             &nbsp;
         </div>
     </div>
-    if (Model.Addresseses.Any())
-    {
-        <table class="table table-condensed table-striped table-hover text-center">
-            <thead>
-                <tr>
-                    <th class="text-center">Adres Adı</th>
-                    <th class="text-center"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Addresseses)
+    if (Model.Addresseses != null)
+    {<div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-8">
+
+            <table class="table table-condensed table-striped table-hover text-center">
+                <thead>
+                    <tr>
+                        <th class="text-center">Adres Adı</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Addresseses)
                 {
                     <tr>
                         <td>@item.NAme</td>
@@ -94,7 +97,24 @@
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
+
+                </tbody>
+            </table>
+            @using (Html.BeginForm("Address", "Account"))
+            {
+                @Html.Hidden("Id","")
+                <div class="form-group">
+                    @Html.TextBox("NAme", "", new {@class = "form-control",placeholder="Adres Adı"})
+                </div>
+                <div class="form-group">
+                  @Html.TextArea("AdresDescription","",new {@class="form-control",placeholder="Adresiniz."})
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info"></button>
+                </div>
+            }
+
+        </div>
+    </div>
     }
 }

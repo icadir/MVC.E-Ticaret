@@ -4,8 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2da5bf5d5a5346a0bec9e96757ee9b0a" Name="Diagram1">
-        <EntityTypeShape EntityType="ETicaretModel.Addresses" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+      <Diagram DiagramId="2da5bf5d5a5346a0bec9e96757ee9b0a" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="ETicaretModel.Categories" Width="1.5" PointX="1.5" PointY="18.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.Comments" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ETicaretModel.MessageReplies" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
@@ -20,10 +19,11 @@
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Products" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ETicaretModel.Members" Width="1.5" PointX="0.75" PointY="6.125" />
-        <AssociationConnector Association="ETicaretModel.FK_Addresses_Members" />
         <AssociationConnector Association="ETicaretModel.FK_Comments_Members" />
         <AssociationConnector Association="ETicaretModel.FK_MessageReplies_Members" />
         <AssociationConnector Association="ETicaretModel.FK_Orders_Members" />
+        <EntityTypeShape EntityType="ETicaretModel.Address" Width="1.5" PointX="3" PointY="4.75" />
+        <AssociationConnector Association="ETicaretModel.FK_Addresses_Members" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -83,20 +83,27 @@ namespace ETicaret.Controllers
         }
 
         [HttpGet]
-        public ActionResult Profil(int id = 0)
+        public ActionResult Profil(int id = 0, string ad = "")
         {
             List<DB.Address> addresses = null;
+            DB.Address currentAdrAddress = new DB.Address();
             if (id == 0)
             {
                 id = base.CurrentUserId();
                 addresses = context.Addresses.Where(x => x.Member_Id == id).ToList();
+                if (!string.IsNullOrEmpty(ad))
+                {
+                    var guid = new Guid(ad);
+                    currentAdrAddress = context.Addresses.FirstOrDefault(x => x.Id == guid);
+                }
             }
             var user = context.Members.FirstOrDefault(x => x.Id == id);
             if (user == null) return RedirectToAction("index", "i");
             ProfilModels model = new ProfilModels()
             {
                 Members = user,
-                Addresseses = addresses
+                Addresseses = addresses,
+                CurrentAddress = currentAdrAddress
             };
 
             return View(model);
@@ -181,6 +188,16 @@ namespace ETicaret.Controllers
                 _address.NAme = address.NAme;
                 _address.AdresDescription = address.AdresDescription;
             }
+            context.SaveChanges();
+            return RedirectToAction("Profil", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAddress(string id)
+        {
+            var guid = new Guid(id);
+            var address = context.Addresses.FirstOrDefault(x => x.Id == guid);
+            context.Addresses.Remove(address);
             context.SaveChanges();
             return RedirectToAction("Profil", "Account");
         }

@@ -7,5 +7,6 @@ namespace ETicaret.Models
     {
         public DB.Members Members { get; set; }
         public List<DB.Address> Addresseses { get; set; }
+        public DB.Address CurrentAddress { get; set; } 
     }
 }

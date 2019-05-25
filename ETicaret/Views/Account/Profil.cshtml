@@ -84,30 +84,30 @@
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Addresseses)
-                {
-                    <tr>
-                        <td>@item.NAme</td>
-                        <td>
-                            <a href="~/i" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <a href="~/i" class="btn btn-danger btn-xs">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                        </td>
-                    </tr>
-                }
+                    {
+                        <tr>
+                            <td>@item.NAme</td>
+                            <td>
+                                <a href="~/Account/Profil?ad=@item.Id.ToString()" class="btn btn-info btn-xs">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                <a href="~/Account/RemoveAddress/@item.Id.ToString()" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
 
                 </tbody>
             </table>
             @using (Html.BeginForm("Address", "Account"))
             {
-                @Html.Hidden("Id","")
+                @Html.Hidden("Id", Model.CurrentAddress.Id.ToString())
                 <div class="form-group">
-                    @Html.TextBox("NAme", "", new {@class = "form-control",placeholder="Adres Adı"})
+                    @Html.TextBox("NAme", "", new { @class = "form-control", placeholder = "Adres Adı" })
                 </div>
                 <div class="form-group">
-                  @Html.TextArea("AdresDescription","",new {@class="form-control",placeholder="Adresiniz."})
+                    @Html.TextArea("AdresDescription", Model.CurrentAddress.AdresDescription, new { @class = "form-control", placeholder = "Adresiniz." })
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-info"></button>

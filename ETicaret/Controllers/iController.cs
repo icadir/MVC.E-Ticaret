@@ -119,6 +119,21 @@ namespace ETicaret.Controllers
         public ActionResult Basket()
         {
             List<Models.i.BasketModels> model = (List<Models.i.BasketModels>)Session["Basket"] ?? new List<Models.i.BasketModels>();
+            if (model == null)
+            {
+                model = new List<BasketModels>();
+            }
+            if (base.IsLogon())
+            {
+                int currentId = CurrentUserId();
+                ViewBag.CurrentAddresses = context.Addresses
+                    .Where(x => x.Member_Id == CurrentUserId())
+                    .Select(x => new SelectListItem()
+                    {
+                        Text = x.NAme,
+                        Value = x.Id.ToString()
+                    }).ToList();
+            }
             ViewBag.TotalPrice = model.Select(x => x.Product.Price * x.Count).Sum();
             return View(model);
         }
@@ -142,8 +157,20 @@ namespace ETicaret.Controllers
 
             return RedirectToAction("Basket", "i");
         }
-    }
 
+        [HttpGet]
+        public ActionResult Buy()
+        {
+            if (IsLogon())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+    }
 }
 
 

@@ -30,7 +30,7 @@
             <tbody>
                 <!--tr*4>(td>lorem2)+(td>{10.00 ₺})+(td>{1})+(td>button.btn>span.glyphicon)-->
                 @foreach (var item in Model)
-            {
+                {
                     <tr>
                         <td>@item.Product.Name</td>
                         <td>@item.Product.Price</td>
@@ -53,11 +53,20 @@
                         </td>
                     </tr>
                 }
-
-
             </tbody>
 
             <tfoot>
+                @if (ViewBag.CurrentAddresses != null && ((List<SelectListItem>)ViewBag.CurrentAddresses) != null)
+                {
+                    <tr>
+                        <td colspan="2">
+                            @Html.Label("AddressId", "Adres Seçiniz");
+                        </td>
+                        <td colspan="4">
+                            @Html.DropDownList("Address", (List<SelectListItem>)ViewBag.CurrentAddresses, new { @class = "form-control" }))
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td>
                         &nbsp;

@@ -1,8 +1,31 @@
-﻿
+﻿@model List<ETicaret.Models.i.BuyModels>
 @{
-    ViewBag.Title = "Siparişleriniz.";
+    ViewBag.Title = "Buy";
 }
 
 <h2>Sipariş Sayfası</h2>
+
 <h3>@ViewBag.MyError</h3>
 
+<table class="table table-condensed table-striped table-hover text-center">
+    <thead>
+        <tr>
+            <th class="text-center">Sipariş</th>
+            <th class="text-center">Fiyat</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ETicaret.Models.i.BuyModels item in Model)
+        {
+            <tr>
+                <td>@item.OrderName</td>
+                <td>@item.TotalPrice ₺ </td>
+                <td>
+                    <button type="button" class="btn btn-info" href="#">Ödeme bildirimi</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

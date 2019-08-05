@@ -209,11 +209,24 @@ namespace ETicaret.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
         [HttpGet]
         public ActionResult Buy()
         {
             if (IsLogon())
             {
+                var currentId = CurrentUserId();
+                var orders = context.Orders.Where(x => x.Member_Id == currentId);
+                var model = new List<BuyModels>();
+
+                foreach (var item in orders)
+                {
+                    var byModel = new BuyModels();
+                    byModel.TotalPrice = item.OrderDetails.Sum(y => y.Price);
+                    byModel.OrderName = string.Join(",", item.OrderDetails.Select(z => z.Products.Name + "(" + z.Quantity + ")"));
+                    model.Add(byModel);
+                }
+
                 return View();
             }
             else

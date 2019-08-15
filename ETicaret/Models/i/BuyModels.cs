@@ -6,7 +6,9 @@ namespace ETicaret.Models.i
 {
     public class BuyModels
     {
-        public List<string> OrderName { get; set; }
+        public string OrderName { get; set; }
         public decimal TotalPrice { get; set; }
+        public string OrderId { get; set; }
+        public string OrderStatus { get; set; }
     }
 }

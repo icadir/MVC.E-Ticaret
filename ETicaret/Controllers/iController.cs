@@ -167,9 +167,7 @@ namespace ETicaret.Controllers
                     var basket = (List<Models.i.BasketModels>)Session["Basket"];
                     var guid = new Guid(Address);
                     var _address = context.Addresses.FirstOrDefault(x => x.Id == guid);
-                    //sipariş verildi == SV
-                    //Ödeme Bildirimi == OB
-                    //ödeme onaylandı== ÖÖ
+
                     var order = new DB.Orders()
                     {
                         AddedDate = DateTime.Now,
@@ -224,6 +222,7 @@ namespace ETicaret.Controllers
                     var byModel = new BuyModels();
                     byModel.TotalPrice = item.OrderDetails.Sum(y => y.Price);
                     byModel.OrderName = string.Join(",", item.OrderDetails.Select(z => z.Products.Name + "(" + z.Quantity + ")"));
+                    byModel.OrderStatus = item.Status;
                     model.Add(byModel);
                 }
 
@@ -235,6 +234,21 @@ namespace ETicaret.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult OrderNotification(OrderNotificationModel model)
+        {
+            if (string.IsNullOrEmpty(model.OrderId) == false)
+            {
+                var guid = new Guid(model.OrderId);
+                var order = context.Orders.FirstOrDefault(x => x.Id == guid);
+                if (order!=null)
+                {
+                    order.Description = model.OrderDescription;
+                    context.SaveChanges();
+                }
+            }
+            return Json("");
+        }
     }
 }
 

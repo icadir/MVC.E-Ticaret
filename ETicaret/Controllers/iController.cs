@@ -197,10 +197,9 @@ namespace ETicaret.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.MyError = ex.Message;
-                    throw;
+                    TempData["MyError"] = ex.Message;
                 }
-                return View();
+                return RedirectToAction("Buy", "i");
             }
             else
             {
@@ -223,6 +222,7 @@ namespace ETicaret.Controllers
                     byModel.TotalPrice = item.OrderDetails.Sum(y => y.Price);
                     byModel.OrderName = string.Join(",", item.OrderDetails.Select(z => z.Products.Name + "(" + z.Quantity + ")"));
                     byModel.OrderStatus = item.Status;
+                    byModel.OrderId = item.Id.ToString();
                     model.Add(byModel);
                 }
 
@@ -241,9 +241,10 @@ namespace ETicaret.Controllers
             {
                 var guid = new Guid(model.OrderId);
                 var order = context.Orders.FirstOrDefault(x => x.Id == guid);
-                if (order!=null)
+                if (order != null)
                 {
                     order.Description = model.OrderDescription;
+                    order.Status = "OB";
                     context.SaveChanges();
                 }
             }

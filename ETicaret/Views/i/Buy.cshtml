@@ -27,15 +27,15 @@
                         //Ödeme Bildirimi == OB
                         //ödeme onaylandı== ÖÖ
                     *@
-                    @if (item.OrderStatus == "SV")
+                    @if (item.OrderStatus.Trim() == "SV")
                     {
                         <button type="button" class="btn btn-info" onclick="OpenModal('@item.OrderId')">Ödeme bildirimi</button>
                     }
-                    else if (item.OrderStatus == "OB")
+                    else if (item.OrderStatus.Trim() == "OB")
                     {
                         <span>Bildirim Yapıldı</span>
                     }
-                    else if (item.OrderStatus == "OO")
+                    else if (item.OrderStatus.Trim() == "OO")
                     {
                         <span>Ödeme Onaylandı.</span>
 
@@ -56,7 +56,7 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="orderId" value="" />
-                <textarea id="orderDes"></textarea>
+                <textarea id="orderDes" class="form-control"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>

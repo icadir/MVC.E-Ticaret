@@ -250,6 +250,13 @@ namespace ETicaret.Controllers
             }
             return Json("");
         }
+
+        [HttpGet]
+        public JsonResult GetProductDes(int id)
+        {
+            var pro = context.Products.FirstOrDefault(x => x.Id == id);
+            return Json(pro.Description, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 

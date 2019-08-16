@@ -44,3 +44,45 @@
     }
 
 </div>
+
+<div class="modal fade" id="productinfo" tabindex="-1" role="dialog" aria-labelledby="productinfo-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="productinfo-label">Ürün Bilgisi</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modalBodyP"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <a href="~/i/AddBasket/Id" id="modelBasketHref" class="btn btn-success">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Sepete At
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function GetProductInfo(Id) {
+        $("#productinfo").modal("show");
+        $.ajax({
+            url: "/i/GetProductDes/" + id,
+            method: "GET",
+            async: true,
+            succes: function (data) {
+                $('#modalBodyP').text(data);
+                var newHref = $("#modalBasketHref").attr("href");
+                newHref = newHref.replace("/Id", "/" + Id);
+                $("#modalBasketHref").attr("href",newHref);
+            },
+            error: function (err) {
+                console.log("GetProdcutDes error ", err);
+                $("#productinfo").modal("hide");
+            }
+        });
+    };
+</script>

@@ -16,9 +16,9 @@
                 <a href="~/i/AddBasket/@Model.Id" class="btn btn-success">
                     <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Sepete Ekle
                 </a>
-                <a href="#" data-toggle="modal" data-target="#productinfo" class="btn btn-info">
+                <button onclick="GetProductInfo(@Model.Id)" class="btn btn-info">
                     <span class="glyphicon glyphicon-info-sign"></span>&nbsp;Bilgi
-                </a>
+                </button>
             </p>
         </div>
     </div>

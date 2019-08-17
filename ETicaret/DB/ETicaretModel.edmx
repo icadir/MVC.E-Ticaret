@@ -71,8 +71,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="IsRead" Type="bit" Nullable="false" />
-          <Property Name="AddedDate" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ModifiedDate" Type="nchar" MaxLength="10" />
+          <Property Name="AddedDate" Type="date" Nullable="false" />
+          <Property Name="ModifiedDate" Type="date" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -328,19 +328,8 @@
           <Property Name="Member_Id" Type="Int32" Nullable="false" />
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK_MessageReplies_Messages" FromRole="MessageReplies" ToRole="Messages" />
           <NavigationProperty Name="Members" Relationship="ETicaretModel.FK_MessageReplies_Members" FromRole="MessageReplies" ToRole="Members" />
-        </EntityType>
-        <EntityType Name="Messages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Subject" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="AddedDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="ModifiedDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="MessageReplies" Relationship="Self.FK_MessageReplies_Messages" FromRole="Messages" ToRole="MessageReplies" />
+          <NavigationProperty Name="Message" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="MessageReplies" ToRole="Message" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -427,18 +416,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MessageReplies_Messages">
-          <End Role="Messages" Type="Self.Messages" Multiplicity="1" />
-          <End Role="MessageReplies" Type="Self.MessageReplies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Messages">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MessageReplies">
-              <PropertyRef Name="MessageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderDetails_Orders">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
@@ -467,7 +444,6 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="Comments" EntityType="Self.Comments" />
           <EntitySet Name="MessageReplies" EntityType="Self.MessageReplies" />
-          <EntitySet Name="Messages" EntityType="Self.Messages" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Products" EntityType="Self.Products" />
@@ -482,10 +458,6 @@
           <AssociationSet Name="FK_Comments_Products" Association="Self.FK_Comments_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MessageReplies_Messages" Association="Self.FK_MessageReplies_Messages">
-            <End Role="Messages" EntitySet="Messages" />
-            <End Role="MessageReplies" EntitySet="MessageReplies" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -512,6 +484,11 @@
           <AssociationSet Name="FK_Addresses_Members" Association="ETicaretModel.FK_Addresses_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <EntitySet Name="Messages" EntityType="ETicaretModel.Message" />
+          <AssociationSet Name="FK_MessageReplies_Messages" Association="ETicaretModel.FK_MessageReplies_Messages">
+            <End Role="Message" EntitySet="Messages" />
+            <End Role="MessageReplies" EntitySet="MessageReplies" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="MemberTypes">
@@ -603,6 +580,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="MessageReplies" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="Message" ToRole="MessageReplies" />
+        </EntityType>
+        <Association Name="FK_MessageReplies_Messages">
+          <End Type="ETicaretModel.Message" Role="Message" Multiplicity="1" />
+          <End Type="ETicaretModel.MessageReplies" Role="MessageReplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MessageReplies">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -640,17 +640,6 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="MessageId" ColumnName="MessageId" />
                 <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="ETicaretModel.Messages">
-              <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
@@ -725,6 +714,17 @@
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
                 <ScalarProperty Name="AdresDescription" ColumnName="AdresDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="ETicaretModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

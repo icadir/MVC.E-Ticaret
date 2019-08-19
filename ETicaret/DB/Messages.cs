@@ -12,10 +12,10 @@ namespace ETicaret.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Message
+    public partial class Messages
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Message()
+        public Messages()
         {
             this.MessageReplies = new HashSet<MessageReplies>();
         }
@@ -25,6 +25,7 @@ namespace ETicaret.DB
         public bool IsRead { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public int ToMemberId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageReplies> MessageReplies { get; set; }

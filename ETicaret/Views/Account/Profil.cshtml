@@ -4,6 +4,7 @@
     ViewBag.Title = string.Format($"{Model.Members.Name} {Model.Members.Surname}");
 
     @(Model.Members.ProfileImageName = "Images/default.jpg") ;
+    var currentUser = ((ETicaret.DB.Members)Session["LogonUser"]);
 }
 <div class="row">
     <div class="col-md-12">
@@ -54,14 +55,22 @@
     </div>
 </div>
 
-@if (Session["LogonUser"] != null && ((ETicaret.DB.Members)Session["LogonUser"]).Id == Model.Members.Id)
+@if (Session["LogonUser"] != null && currentUser.Id == Model.Members.Id)
 {
     <div class="row">
         <div class="col-md-10 col-md-offset-1 text-right">
+            @if ((int)currentUser.MemberType > 3)
+            {
+                <a href="~/Product/i" class="btn btn-info">
+                    <span class="glyphicon glyphicon-plus"></span> Kategoriler
+                </a>
+                <a href="~/Category/i" class="btn btn-info">
+                    <span class="glyphicon glyphicon-plus"></span> Ürünler
+                </a>
+            }
             <a href="~/Account/ProfilEdit" class="btn btn-warning">
                 <span class="glyphicon glyphicon-edit"></span> Düzenle
             </a>
-
             <a href="#" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span> Sil
             </a>

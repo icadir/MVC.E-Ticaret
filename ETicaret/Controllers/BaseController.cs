@@ -14,6 +14,13 @@ namespace ETicaret.Controllers
             ViewBag.MenuCategories = context.Categories.Where(x => x.Parent_Id == null).ToList();
         }
 
+        protected DB.Members CurrentUser()
+        {
+            if (Session["LogonUser"] == null) return null;
+            return ((ETicaret.DB.Members)Session["LogonUser"]);
+
+        }
+
         protected DB.Members GCurrentUser()
         {
             if (Session["LogonUser"] == null) return null;

@@ -31,7 +31,7 @@ namespace ETicaret.Controllers
                 {
                     throw new Exception("Bu E-posta Adresi Kayıtlıdır..");
                 }
-                user.Member.MemberType = DB.MemberType.Customer;
+                user.Member.MemberType = (int) DB.MemberType.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
                 context.SaveChanges();

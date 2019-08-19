@@ -31,8 +31,8 @@ namespace ETicaret.DB
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Members> Members { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Members> Members { get; set; }
+        public virtual DbSet<Messages> Messages { get; set; }
     }
 }

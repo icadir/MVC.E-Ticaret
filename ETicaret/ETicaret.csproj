@@ -45,11 +45,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -175,6 +175,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\MesageController.cs" />
+    <Compile Include="Controllers\ProdcutController.cs" />
     <Compile Include="DB\Address.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
@@ -208,10 +209,10 @@
     <Compile Include="DB\MemberTypes.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Message.cs">
+    <Compile Include="DB\MessageReplies.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\MessageReplies.cs">
+    <Compile Include="DB\Messages.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\OrderDetails.cs">
@@ -261,6 +262,8 @@
     <Content Include="Views\i\Basket.cshtml" />
     <Content Include="Views\i\Buy.cshtml" />
     <Content Include="Views\Mesage\i.cshtml" />
+    <Content Include="Views\Prodcut\i.cshtml" />
+    <Content Include="Views\Prodcut\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

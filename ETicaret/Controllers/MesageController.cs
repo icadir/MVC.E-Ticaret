@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ETicaret.DB;
 using ETicaret.Models.Message;
@@ -30,7 +29,7 @@ namespace ETicaret.Controllers
         public ActionResult SendMessage(SendMessageModel message)
         {
             if (IsLogon() == false) return RedirectToAction("index", "i");
-            DB.Message mesaj = new Message
+            DB.Messages mesaj = new Messages
             {
                 Id = Guid.NewGuid(),
                 AddedDate = DateTime.Now,

@@ -21,6 +21,6 @@ namespace ETicaret.DB
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string NAme { get; set; }
     
-        public virtual Members Member { get; set; }
+        public virtual Members Members { get; set; }
     }
 }

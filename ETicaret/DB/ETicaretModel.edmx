@@ -73,6 +73,7 @@
           <Property Name="IsRead" Type="bit" Nullable="false" />
           <Property Name="AddedDate" Type="date" Nullable="false" />
           <Property Name="ModifiedDate" Type="date" />
+          <Property Name="ToMemberId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -329,7 +330,7 @@
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Members" Relationship="ETicaretModel.FK_MessageReplies_Members" FromRole="MessageReplies" ToRole="Members" />
-          <NavigationProperty Name="Message" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="MessageReplies" ToRole="Message" />
+          <NavigationProperty Name="Messages" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="MessageReplies" ToRole="Messages" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -467,7 +468,13 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="ETicaretModel.Address" />
           <EntitySet Name="Members" EntityType="ETicaretModel.Members" />
+          <EntitySet Name="Messages" EntityType="ETicaretModel.Messages" />
+          <AssociationSet Name="FK_Addresses_Members" Association="ETicaretModel.FK_Addresses_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comments_Members" Association="ETicaretModel.FK_Comments_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="Comments" EntitySet="Comments" />
@@ -480,22 +487,33 @@
             <End Role="Members" EntitySet="Members" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <EntitySet Name="Addresses" EntityType="ETicaretModel.Address" />
-          <AssociationSet Name="FK_Addresses_Members" Association="ETicaretModel.FK_Addresses_Members">
-            <End Role="Members" EntitySet="Members" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
-          <EntitySet Name="Messages" EntityType="ETicaretModel.Message" />
           <AssociationSet Name="FK_MessageReplies_Messages" Association="ETicaretModel.FK_MessageReplies_Messages">
-            <End Role="Message" EntitySet="Messages" />
+            <End Role="Messages" EntitySet="Messages" />
             <End Role="MessageReplies" EntitySet="MessageReplies" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EnumType Name="MemberTypes">
           <Member Name="Customer" Value="0" />
           <Member Name="Admin" Value="10" />
           <Member Name="Editor" Value="8" />
         </EnumType>
+        <EnumType Name="MemberType">
+          <Member Name="Customer" Value="0" />
+          <Member Name="Admin" Value="10" />
+          <Member Name="Editor" Value="8" />
+        </EnumType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AdresDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Member_Id" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="NAme" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="ETicaretModel.FK_Addresses_Members" FromRole="Address" ToRole="Members" />
+        </EntityType>
         <EntityType Name="Members">
           <Key>
             <PropertyRef Name="Id" />
@@ -509,12 +527,36 @@
           <Property Name="ProfileImageName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="MemberType" Type="ETicaretModel.MemberType" Nullable="false" />
+          <Property Name="MemberType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="ETicaretModel.FK_Addresses_Members" FromRole="Members" ToRole="Address" />
           <NavigationProperty Name="Comments" Relationship="ETicaretModel.FK_Comments_Members" FromRole="Members" ToRole="Comments" />
           <NavigationProperty Name="MessageReplies" Relationship="ETicaretModel.FK_MessageReplies_Members" FromRole="Members" ToRole="MessageReplies" />
           <NavigationProperty Name="Orders" Relationship="ETicaretModel.FK_Orders_Members" FromRole="Members" ToRole="Orders" />
-          <NavigationProperty Name="Addresses" Relationship="ETicaretModel.FK_Addresses_Members" FromRole="Members" ToRole="Address" />
         </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ToMemberId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MessageReplies" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="Messages" ToRole="MessageReplies" />
+        </EntityType>
+        <Association Name="FK_Addresses_Members">
+          <End Type="ETicaretModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="ETicaretModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="Member_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comments_Members">
           <End Type="ETicaretModel.Members" Role="Members" Multiplicity="1" />
           <End Type="ETicaretModel.Comments" Role="Comments" Multiplicity="*" />
@@ -551,51 +593,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EnumType Name="MemberType">
-          <Member Name="Customer" Value="0" />
-          <Member Name="Admin" Value="10" />
-          <Member Name="Editor" Value="8" />
-        </EnumType>
-        <EntityType Name="Address">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="AdresDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Member_Id" Type="Int32" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="NAme" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Member" Relationship="ETicaretModel.FK_Addresses_Members" FromRole="Address" ToRole="Members" />
-        </EntityType>
-        <Association Name="FK_Addresses_Members">
-          <End Type="ETicaretModel.Members" Role="Members" Multiplicity="1" />
-          <End Type="ETicaretModel.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Members">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="Member_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Message">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Subject" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="MessageReplies" Relationship="ETicaretModel.FK_MessageReplies_Messages" FromRole="Message" ToRole="MessageReplies" />
-        </EntityType>
         <Association Name="FK_MessageReplies_Messages">
-          <End Type="ETicaretModel.Message" Role="Message" Multiplicity="1" />
+          <End Type="ETicaretModel.Messages" Role="Messages" Multiplicity="1" />
           <End Type="ETicaretModel.MessageReplies" Role="MessageReplies" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Message">
+            <Principal Role="Messages">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="MessageReplies">
@@ -603,7 +605,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -690,6 +692,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="ETicaretModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="NAme" ColumnName="NAme" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+                <ScalarProperty Name="AdresDescription" ColumnName="AdresDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="ETicaretModel.Members">
               <MappingFragment StoreEntitySet="Members">
@@ -706,21 +720,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="ETicaretModel.Address">
-              <MappingFragment StoreEntitySet="Addresses">
-                <ScalarProperty Name="NAme" ColumnName="NAme" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="AdresDescription" ColumnName="AdresDescription" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="ETicaretModel.Message">
+            <EntityTypeMapping TypeName="ETicaretModel.Messages">
               <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="ToMemberId" ColumnName="ToMemberId" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="IsRead" ColumnName="IsRead" />
@@ -743,7 +746,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

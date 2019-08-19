@@ -24,7 +24,8 @@ namespace ETicaret.Controllers
             {
                 return RedirectToAction("index", "i");
             }
-            var products = context.Products.ToList();
+
+            var products = context.Products.Where(x => x.IsDeleted == false || x.IsDeleted == null).ToList();
             return View(products);
         }
 
@@ -57,7 +58,7 @@ namespace ETicaret.Controllers
                     productImagePath = filePath;
                 }
             }
-            if (product.Id>0)
+            if (product.Id > 0)
             {
                 var dbProduct = context.Products.FirstOrDefault(x => x.Id == product.Id);
                 dbProduct.Category_Id = product.Category_Id;
@@ -67,7 +68,8 @@ namespace ETicaret.Controllers
                 dbProduct.Name = product.Name;
                 dbProduct.Price = product.Price;
                 dbProduct.UnitsInStock = product.UnitsInStock;
-                if (string.IsNullOrEmpty(productImagePath)==false)
+                dbProduct.IsDeleted = false;
+                if (string.IsNullOrEmpty(productImagePath) == false)
                 {
                     dbProduct.ProductImageName = productImagePath;
                 }
@@ -75,10 +77,19 @@ namespace ETicaret.Controllers
             else
             {
                 product.AddedDate = DateTime.Now;
+                product.IsDeleted = false;
                 product.ProductImageName = productImagePath;
                 context.Entry(product).State = EntityState.Added;
             }
-     
+
+            context.SaveChanges();
+            return RedirectToAction("i");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var product = context.Products.FirstOrDefault(x => x.Id == id);
+            product.IsDeleted = true;
             context.SaveChanges();
             return RedirectToAction("i");
         }

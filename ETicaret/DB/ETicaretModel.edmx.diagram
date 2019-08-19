@@ -16,7 +16,7 @@
         <AssociationConnector Association="ETicaretModel.FK_Comments_Products" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ETicaretModel.FK_OrderDetails_Products" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ETicaretModel.Address" Width="1.5" PointX="4.125" PointY="4.125" />
+        <EntityTypeShape EntityType="ETicaretModel.Address" Width="1.5" PointX="3.875" PointY="3.125" />
         <EntityTypeShape EntityType="ETicaretModel.Members" Width="1.5" PointX="1.125" PointY="5.75" />
         <EntityTypeShape EntityType="ETicaretModel.Messages" Width="1.5" PointX="0.75" PointY="1" />
         <AssociationConnector Association="ETicaretModel.FK_Addresses_Members" />

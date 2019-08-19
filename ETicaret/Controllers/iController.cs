@@ -12,7 +12,7 @@ namespace ETicaret.Controllers
         [HttpGet]
         public ActionResult Index(int? id)
         {
-            IQueryable<DB.Products> products = context.Products;
+            IQueryable<DB.Products> products = context.Products.Where(x=>x.IsDeleted==false||x.IsDeleted==null);
             DB.Categories category = null;
             if (id.HasValue)
             {

@@ -36,10 +36,18 @@
             @Html.DisplayFor(modelItem => item.Categories.Name)
         </td>
         <td>
-            @Html.ActionLink("Düzenle", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Sil", "Delete", new { id=item.Id })
+            <a href="@Url.Action("Edit",new {id = item.Id})" class="btn btn-info">Düzenle</a>
+
+            <button type="button" onclick="DeleteProduct('@Url.Action("Delete",new {id = item.Id})')" class="btn btn-danger">Sil</button>
         </td>
     </tr>
 }
 
 </table>
+<script>
+    function DeleteProduct(url) {
+        if (confirm("Silmek İstediğine Emin Misiniz ? ")) {
+            location.href = url;
+        }
+    }
+</script>

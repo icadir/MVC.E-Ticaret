@@ -152,11 +152,10 @@ namespace ETicaret.Controllers
                         var filePath = "/images/" + fileName;
                         updateMember.ProfileImageName = filePath;
                     }
-
                 }
 
                 context.SaveChanges();
-                return RedirectToAction("Profile", "Account");
+                return RedirectToAction("Profil", "Account");
             }
             catch (Exception ex)
             {

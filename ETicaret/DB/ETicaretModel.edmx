@@ -26,6 +26,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="AddedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -306,6 +307,7 @@
           <NavigationProperty Name="Categories1" Relationship="Self.FK_Categories_Categories" FromRole="Categories" ToRole="Categories1" />
           <NavigationProperty Name="Categories2" Relationship="Self.FK_Categories_Categories" FromRole="Categories1" ToRole="Categories" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -616,6 +618,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ETicaretModel.Categories">
               <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Parent_Id" ColumnName="Parent_Id" />

@@ -173,6 +173,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\MesageController.cs" />
     <Compile Include="Controllers\ProdcutController.cs" />
@@ -275,6 +276,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\Product\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

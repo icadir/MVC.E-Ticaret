@@ -32,6 +32,10 @@ namespace ETicaret.Controllers
         }
         public ActionResult Edit(int id = 0)
         {
+            if (IsLogon() == false)
+            {
+                return RedirectToAction("index", "i");
+            }
             var cat = context.Categories.FirstOrDefault(x => x.Id == id);
             var cats = context.Categories.Select(x => new SelectListItem()
             {
@@ -41,7 +45,8 @@ namespace ETicaret.Controllers
             cats.Add(new SelectListItem()
             {
                 Value ="0",
-                Text = "Ana Kategori"
+                Text = "Ana Kategori",
+                Selected = true
             });
             ViewBag.Categories = cats;
 
@@ -50,6 +55,10 @@ namespace ETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Categories category)
         {
+            if (IsLogon() == false)
+            {
+                return RedirectToAction("index", "i");
+            }
             if (category.Id > 0)
             {
                 var cat = context.Categories.FirstOrDefault(x => x.Id == category.Id);
@@ -75,6 +84,10 @@ namespace ETicaret.Controllers
         }
         public ActionResult Delete(int id)
         {
+            if (IsLogon() == false)
+            {
+                return RedirectToAction("index", "i");
+            }
             var category = context.Categories.FirstOrDefault(x => x.Id == id);
             category.IsDeleted = true;
             context.SaveChanges();

@@ -44,6 +44,10 @@ namespace ETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Products product)
         {
+            if (IsLogon() == false)
+            {
+                return RedirectToAction("index", "i");
+            }
             var productImagePath = string.Empty;
             if (Request.Files != null && Request.Files.Count > 0)
             {
@@ -88,6 +92,10 @@ namespace ETicaret.Controllers
 
         public ActionResult Delete(int id)
         {
+            if (IsLogon() == false)
+            {
+                return RedirectToAction("index", "i");
+            }
             var product = context.Products.FirstOrDefault(x => x.Id == id);
             product.IsDeleted = true;
             context.SaveChanges();

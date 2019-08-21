@@ -267,6 +267,7 @@
     <Content Include="Views\Prodcut\Edit.cshtml" />
     <Content Include="Views\Category\i.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

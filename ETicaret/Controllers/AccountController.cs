@@ -31,7 +31,7 @@ namespace ETicaret.Controllers
                 {
                     throw new Exception("Bu E-posta Adresi Kayıtlıdır..");
                 }
-                user.Member.MemberType = (int) DB.MemberType.Customer;
+                user.Member.MemberType = (int)DB.MemberType.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
                 context.SaveChanges();
@@ -199,6 +199,32 @@ namespace ETicaret.Controllers
             context.Addresses.Remove(address);
             context.SaveChanges();
             return RedirectToAction("Profil", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            var member = context.Members.FirstOrDefault(x => x.Email==email);
+            if (member==null)
+            {
+                ViewBag.MyError = "Böyle Bir Hesap Bulunamadı";
+                return View();
+            }
+            else
+            {
+                var body = "Şifreni : " + member.Password;
+                MyMail mail = new MyMail(member.Email,"Şifremi Unuttum",body);
+                mail.SendMail();
+                TempData["Info"] = email + " mail adresinize şifreniz gönderilmiştir.";
+                return RedirectToAction("Login");
+            }
+          
         }
     }
 }

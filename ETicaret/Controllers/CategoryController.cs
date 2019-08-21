@@ -1,41 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using ETicaret.Filter;
 
 namespace ETicaret.Controllers
 {
+    [MyAuthorization(_memberType: 8)]
     public class CategoryController : BaseController
     {
         // GET: Category
         public ActionResult i()
         {
             DB.Members user = null;
-            if (IsLogon() == true)
-            {
-                user = CurrentUser();
-            }
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
-            else if (user.MemberType > 4)
-            {
-                return RedirectToAction("index", "i");
-            }
-
             var categorieses = context.Categories.Where(x => x.IsDeleted == false || x.IsDeleted == null).ToList();
             return View(categorieses.OrderByDescending(x => x.AddedDate).ToList());
         }
         public ActionResult Edit(int id = 0)
         {
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
             var cat = context.Categories.FirstOrDefault(x => x.Id == id);
             var cats = context.Categories.Select(x => new SelectListItem()
             {
@@ -55,10 +37,6 @@ namespace ETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Categories category)
         {
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
             if (category.Id > 0)
             {
                 var cat = context.Categories.FirstOrDefault(x => x.Id == category.Id);
@@ -82,12 +60,9 @@ namespace ETicaret.Controllers
             context.SaveChanges();
             return RedirectToAction("i");
         }
+
         public ActionResult Delete(int id)
         {
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
             var category = context.Categories.FirstOrDefault(x => x.Id == id);
             category.IsDeleted = true;
             context.SaveChanges();

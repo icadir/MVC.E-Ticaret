@@ -3,28 +3,17 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using ETicaret.Filter;
 
 namespace ETicaret.Controllers
 {
+    [MyAuthorization(_memberType: 8)]
     public class ProdcutController : BaseController
     {
         // GET: Prodcut
         public ActionResult i()
         {
             DB.Members user = null;
-            if (IsLogon() == true)
-            {
-                user = CurrentUser();
-            }
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
-            else if (user.MemberType > 4)
-            {
-                return RedirectToAction("index", "i");
-            }
-
             var products = context.Products.Where(x => x.IsDeleted == false || x.IsDeleted == null).ToList();
             return View(products.OrderByDescending(x=>x.AddedDate).ToList());
         }
@@ -44,10 +33,6 @@ namespace ETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Products product)
         {
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
             var productImagePath = string.Empty;
             if (Request.Files != null && Request.Files.Count > 0)
             {
@@ -92,14 +77,11 @@ namespace ETicaret.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (IsLogon() == false)
-            {
-                return RedirectToAction("index", "i");
-            }
             var product = context.Products.FirstOrDefault(x => x.Id == id);
             product.IsDeleted = true;
             context.SaveChanges();
             return RedirectToAction("i");
         }
+
     }
 }

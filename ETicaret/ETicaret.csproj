@@ -225,6 +225,7 @@
     <Compile Include="DB\Products.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filter\MyAuthorizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +242,7 @@
     <Compile Include="Models\Message\iModels.cs" />
     <Compile Include="Models\Message\SendMessageModel.cs" />
     <Compile Include="Models\ProfilModels.cs" />
+    <Compile Include="MyMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using ETicaret.DB;
+using ETicaret.Filter;
 using ETicaret.Models.Message;
 
 namespace ETicaret.Controllers
 {
+    [MyAuthorization(_memberType:0)]
     public class MesageController : BaseController
     {
         // GET: Mesage

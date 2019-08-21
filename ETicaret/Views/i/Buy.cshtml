@@ -1,6 +1,8 @@
 ﻿@model List<ETicaret.Models.i.BuyModels>
 @{
-    ViewBag.Title = "Buy";
+    ViewBag.Title = "Siparişleriniz";
+    var currentUser = (ETicaret.DB.Members)Session["LogonUser"];
+    var currenUserType = (int)currentUser.MemberType;
 }
 
 <h2>Sipariş Sayfası</h2>
@@ -10,8 +12,10 @@
 <table class="table table-condensed table-striped table-hover text-center">
     <thead>
         <tr>
+
             <th class="text-center">Sipariş</th>
             <th class="text-center">Fiyat</th>
+            <th class="text-center"></th>
             <th class="text-center"></th>
         </tr>
     </thead>
@@ -19,6 +23,13 @@
         @foreach (ETicaret.Models.i.BuyModels item in Model)
         {
             <tr>
+                @if (currenUserType > 8)
+                {
+                    <td>
+                        <a href="~/Account/Profil/@item.Member.Id" target="_blank"> @item.Member.Name @item.Member.Surname</a>
+                    </td>
+
+                }
                 <td>@item.OrderName</td>
                 <td>@item.TotalPrice ₺ </td>
                 <td>
@@ -40,6 +51,11 @@
                         <span>Ödeme Onaylandı.</span>
 
                     }
+                </td>
+                <td>
+                    <button class="btn btn-info" type="button" onclick="ShowDes('@item.OrderId')">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
                 </td>
             </tr>
         }
@@ -68,7 +84,61 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="orderStatusinfo" tabindex="-1" role="dialog" aria-labelledby="productinfo-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="productinfo-label">Sipariş Durumu</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="orderStatusId" value="" />
+                <textarea id="orderstatusDes" class="form-control" @(currenUserType < 4 ? "readonly=\"readonly\"" : "") readonly="readonly"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                @if (currenUserType < 4)
+                {
+                    <button id="btnSiparisTamamla" type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-bell"></span>&nbsp;Siparisi Tamamla
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    function ShowDes(orderId) {
+        $.ajax({
+            url: "/i/GetOrderDes/" + orderId,
+            method: "GET",
+            async: true,
+            success: function (data) {
+                $("#orderStatusinfo").modal("show");
+                $("#orderStatusId").val(orderId);
+                $("#orderstatusDes").val(data);
+            },
+            error: function (err) {
+                console.log("Hata", err);
+            }
+        });
+    }
+    $('#btnSiparisTamamla').click(function () {
+        $.ajax({
+            url: "/i/OrderCompilete/" + $("#orderStatusId").val(),
+            method: "POST",
+            async: true,
+            data: { text: ("#orderStatusDest").val() },
+            success: function (data) {
+                location.reload();
+            },
+            error: function (err) {
+                console.log("Hata", err);
+            }
+        });
+    });
     function OpenModal(orderId) {
         $("#orderinfo").modal("show");
         $("#orderId").val(orderId);

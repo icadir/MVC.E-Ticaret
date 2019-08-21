@@ -12,7 +12,7 @@ namespace ETicaret.Controllers
         [HttpGet]
         public ActionResult Index(int? id)
         {
-            IQueryable<DB.Products> products = context.Products.OrderByDescending(x=>x.AddedDate).Where(x=>x.IsDeleted==false||x.IsDeleted==null);
+            IQueryable<DB.Products> products = context.Products.OrderByDescending(x => x.AddedDate).Where(x => x.IsDeleted == false || x.IsDeleted == null);
             DB.Categories category = null;
             if (id.HasValue)
             {
@@ -213,7 +213,16 @@ namespace ETicaret.Controllers
             if (IsLogon())
             {
                 var currentId = CurrentUserId();
-                var orders = context.Orders.Where(x => x.Member_Id == currentId);
+                IQueryable<DB.Orders> orders;
+                if ((int)CurrentUser().MemberType > 8)
+                {
+                    orders = context.Orders.Where(x => x.Status == "OB");
+
+                }
+                else
+                {
+                    orders = context.Orders.Where(x => x.Member_Id == currentId);
+                }
                 var model = new List<BuyModels>();
 
                 foreach (var item in orders)
@@ -223,6 +232,7 @@ namespace ETicaret.Controllers
                     byModel.OrderName = string.Join(",", item.OrderDetails.Select(z => z.Products.Name + "(" + z.Quantity + ")"));
                     byModel.OrderStatus = item.Status;
                     byModel.OrderId = item.Id.ToString();
+                    byModel.Member = item.Members;
                     model.Add(byModel);
                 }
 
@@ -257,6 +267,26 @@ namespace ETicaret.Controllers
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
             return Json(pro.Description, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetOrderDes(string id)
+        {
+            var guid = new Guid(id);
+            var order = context.Orders.FirstOrDefault(x => x.Id == guid);
+            return Json(order.Description, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult OrderCompilete(string id, string text)
+        {
+            var guid = new Guid(id);
+            var order = context.Orders.FirstOrDefault(x => x.Id == guid);
+            order.Description = text;
+            order.Status = "OO";
+            context.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
 

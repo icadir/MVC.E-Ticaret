@@ -10,5 +10,6 @@ namespace ETicaret.Models.i
         public decimal TotalPrice { get; set; }
         public string OrderId { get; set; }
         public string OrderStatus { get; set; }
+        public DB.Members Member { get; set; }
     }
 }
